@@ -27,6 +27,10 @@
         - Flask
         - uwsgi
 
+    - name: Disable SELinux
+      selinux:
+        state: disabled
+
 
    
     
