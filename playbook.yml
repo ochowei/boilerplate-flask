@@ -1,6 +1,7 @@
 ---
 - name: Install Dependencies
   hosts: all
+  become: yes
   tasks:  
 
     - name: Install the 'Development tools' package group
