@@ -14,7 +14,14 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
   # config.vm.box_version = "<= 1905.1"
-  config.vm.provision "shell", path: "setup.sh"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    ln -s /vagrant /usr/share/uwsgi
+    sh /usr/share/uwsgi/setup.sh   
+    
+  SHELL
+
+  #config.vm.provision "shell", path: "setup.sh"
 
   config.vm.provision "shell", privileged: false,inline: <<-SHELL
     
