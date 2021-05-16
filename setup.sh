@@ -1,6 +1,9 @@
 #!/bin/bash
 BASEDIR=$(dirname "$0")
 
+mkdir -p /usr/share/uwsgi
+chmod 777 /usr/share/uwsgi
+cp $BASEDIR/* /usr/share/uwsgi/
 yum install -y epel-release
 yum install -y ansible
 
