@@ -3,8 +3,6 @@ Description=uWSGI instance to serve myproject
 After=network.target
 
 [Service]
-User=nginx
-Group=nginx
 WorkingDirectory=/usr/share/uwsgi
 ExecStart=/usr/local/bin/uwsgi --ini /usr/share/uwsgi/myuwsgi.ini
 
