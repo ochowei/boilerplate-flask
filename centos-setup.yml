@@ -1,0 +1,40 @@
+---
+- name: Setup for CentOS
+  hosts: all
+  become: yes
+  tasks:  
+
+    - name: Install the 'Development tools' package group
+      yum:
+        name: "@Development tools"
+        state: present
+
+    - name: Install Python
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - python3
+        - python3-pip
+        - python3-devel
+        - nginx
+  
+    - name: Install Flask
+      pip:
+        executable: pip3
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - Flask
+        - uwsgi
+
+    - name: Disable SELinux
+      selinux:
+        state: disabled
+
+    - name: Reboot a slow machine that might have lots of updates to apply
+      reboot:
+        reboot_timeout: 600
+   
+    
+    

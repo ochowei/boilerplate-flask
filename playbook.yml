@@ -1,40 +1,10 @@
 ---
 - name: Install Dependencies
   hosts: all
-  become: yes
-  tasks:  
 
-    - name: Install the 'Development tools' package group
-      yum:
-        name: "@Development tools"
-        state: present
+- import_playbook: centos-setup.yml
+  when: ansible_distribution == "CentOS"
 
-    - name: Install Python
-      yum:
-        name: "{{ packages }}"
-      vars:
-        packages:
-        - python3
-        - python3-pip
-        - python3-devel
-        - nginx
-  
-    - name: Install Flask
-      pip:
-        executable: pip3
-        name: "{{ packages }}"
-      vars:
-        packages:
-        - Flask
-        - uwsgi
 
-    - name: Disable SELinux
-      selinux:
-        state: disabled
-
-    - name: Reboot a slow machine that might have lots of updates to apply
-      reboot:
-        reboot_timeout: 600
-   
-    
-    
+- import_playbook: ubuntu-setup.yml
+  when: ansible_distribution == "Ubuntu"
