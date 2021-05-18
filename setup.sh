@@ -211,6 +211,8 @@ do_install() {
 	# Run setup for each distro accordingly
 	case "$lsb_dist" in
 		ubuntu|debian|raspbian)
+			adduser --disabled-password --gecos "" nginx	
+
 			BASEDIR=$(dirname "$0")
 
             mkdir -p /usr/share/uwsgi
@@ -225,6 +227,7 @@ do_install() {
             systemctl enable --now uwsgi
             cp $BASEDIR/nginx.conf /etc/nginx/
             systemctl enable --now nginx
+			systemctl restart nginx
 			exit 0
 			;;
 		centos|fedora|rhel)
